@@ -2,7 +2,7 @@ package yurii.karpliuk.svitmovie.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import yurii.karpliuk.svitmovie.dto.response.MovieResponse;
 import yurii.karpliuk.svitmovie.entity.Category;
@@ -33,10 +33,6 @@ public class MovieServiceImpl implements MovieService {
         return movieResponses;
     }
 
-    @Override
-    public Page<MovieResponse> findMovieByNameLike(Pageable pageable) {
-        return null;
-    }
 
     @Override
     public MovieResponse getOneById(Long id) {
@@ -68,8 +64,18 @@ public class MovieServiceImpl implements MovieService {
     }
 
 
+    public Page<MovieResponse> searchByTitleOfMovieLike(Pageable pageable,String movieTitle) {
+        Page<Movie> movies = movieRepository.findAllByTitleLike("%" + movieTitle + "%",pageable);
+        Page<MovieResponse> movieResponses = movies.map(entity -> {
+            MovieResponse dto = buildMovieResponse(entity);
+            return dto;
+        });
+
+        return movieResponses;
+    }
+
     @Override
-    public Page<MovieResponse> searchMoviesByCategoryName(Pageable pageable, String categoryName) {
+    public Page<MovieResponse> search(Pageable pageable, String categoryName) {
 
         MovieSpecification movieSpecification = new MovieSpecification(categoryName);
         Page<Movie> movies =  movieRepository.findAll(movieSpecification, pageable);

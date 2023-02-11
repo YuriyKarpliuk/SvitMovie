@@ -8,11 +8,11 @@ import yurii.karpliuk.svitmovie.entity.Movie;
 public interface MovieService {
     Page<MovieResponse> findAllMovies(Pageable pageable);
 
-    Page<MovieResponse> findMovieByNameLike(Pageable pageable);
-
     MovieResponse getOneById(Long id);
 
     MovieResponse buildMovieResponse(Movie movie);
 
-    Page<MovieResponse> searchMoviesByCategoryName(Pageable pageable,String categoryName);
+    Page<MovieResponse> search(Pageable pageable,String categoryName);
+
+    Page<MovieResponse> searchByTitleOfMovieLike(Pageable pageable,String movieTitle);
 }

@@ -12,6 +12,7 @@ import java.util.List;
 public class MovieSpecification  implements Specification<Movie> {
     private String categoryName;
 
+
     public MovieSpecification(String categoryName) {
         this.categoryName = categoryName;
     }
