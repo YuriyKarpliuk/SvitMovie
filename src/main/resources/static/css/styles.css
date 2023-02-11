@@ -1,0 +1,77 @@
+/*auth*/
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+  overflow-x: hidden;
+}
+#auth {
+  background: #00b5e9; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #141517,
+    #00b5e9
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #141517,
+    #00b5e9
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+#register {
+  margin: auto;
+  margin: auto;
+  padding: 15px;
+  margin-top: 50px;
+  text-align: center;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+#register h3 {
+  text-transform: uppercase;
+  text-decoration: underline;
+}
+#register input {
+  height: 42px;
+}
+
+#submitbtn {
+  width: 50%;
+  height: 50px;
+  background-color: #00b5e9;
+  border: 2px solid black;
+  margin: auto;
+}
+#submitbtn:active{
+
+background-color: yellow;
+
+}
+.card {
+  width: 35%;
+}
+
+.navbar{
+  padding: 5px 0px 5px 0px;
+  background-color: ghostwhite;
+  transition: all ease 0.4s;
+}
+
+.navbar .navbar-nav li a{
+  font-size: 16px;
+  color: white;
+}
+
+.navbar .navbar-brand {
+  padding-top: 0px;
+}
+.navbar .navbar-brand img {
+    width: 100px;
+    height: 100px;
+}
+
+

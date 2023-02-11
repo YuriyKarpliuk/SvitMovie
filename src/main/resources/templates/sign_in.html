@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Signin</title>
+	<link rel="stylesheet" type="text/css"
+		href="D:/JavaProject/SvitMovie/src/main/resources/static/css/as-alert-message.min.css">
+	<link rel="stylesheet" type="text/css"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+	<link rel="stylesheet" type="text/css"
+		href="D:/JavaProject/SvitMovie/src/main/resources/static/css/style-starter.css">
+	<link rel="stylesheet" type="text/css" href="D:/JavaProject/SvitMovie/src/main/resources/static/css/sign-in.css">
+	<script src="D:\MyProjects\frontend\jquery\jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+	<header id="site-header" class="w3l-header fixed-top">
+		<!--/nav-->
+		<nav class="navbar navbar-expand-lg navbar-light fill px-lg-0 py-0 px-3">
+			<h1><a class="navbar-brand" href="index.html" style="margin-left: 30px"><span class="fa fa-play icon-log"
+						aria-hidden="true"></span>
+					SvitMovie</a></h1>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			</div>
+			<div class="Login_SignUp" id="login_s">
+				<a class="nav-link" href="sign_in.html"><i class="fa fa-user-circle-o"></i></a>
+			</div>
+
+		</nav>
+	</header>
+
+	<div class="container_signup_signin" id="container_signup_signin">
+		<div class="form-container sign-up-container">
+			<form name="sign-up-form">
+				<h1>Create Account</h1>
+
+				<input name="firstName" type="text" placeholder="First name" required />
+				<input name="email" type="email" placeholder="Email" required />
+				<input name="phone" type="text" placeholder="Phone number" required />
+				<input name="password" type="password" placeholder="Password" required />
+				<button>Sign Up</button>
+			</form>
+		</div>
+		<div class="form-container sign-in-container">
+			<form name="sign-in-form" style="color: var(--theme-title);">
+				<h1>Sign in</h1>
+
+				<input name="email" type="email" placeholder="Email" required />
+				<input name="password" type="password" placeholder="Password" required />
+				<a href="#">Forgot your password?</a>
+				<button>Sign In</button>
+			</form>
+		</div>
+		<div class="overlay-container">
+			<div class="overlay">
+				<div class="overlay-panel overlay-left">
+					<h1>Welcome Back!</h1>
+					<p>To keep connected with us please login with your login details</p>
+					<button class="ghost" id="signIn">Sign In</button>
+				</div>
+				<div class="overlay-panel overlay-right">
+					<h1>Hello, Friend!</h1>
+					<p>Register and book your tickets now!!!</p>
+					<button class="ghost" id="signUp">Sign Up</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/as-alert-message.min.js"></script>
+
+	<!-- disable body scroll which navbar is in active -->
+	<script>
+		$(function () {
+			$('.navbar-toggler').click(function () {
+				$('body').toggleClass('noscroll');
+			})
+		});
+	</script>
+	<!-- disable body scroll which navbar is in active -->
+	<!--/MENU-JS-->
+	<script>
+
+
+		$('form[name="sign-up-form"]').on("submit", function (event) {
+			event.preventDefault();
+			const data = new FormData(event.target);
+			const value = Object.fromEntries(data.entries());
+
+			$.post({
+				url: "http://localhost:8080/api/auth/register",
+				contentType: 'application/json',
+				dataType: 'json',
+				data: JSON.stringify(value),
+				complete: function (jqXHR) {
+					console.log(jqXHR)
+					if (jqXHR.status == 200) {
+						alert('Zbs!');
+
+					} else {
+						alert('Something went wrong!');
+
+					}
+				}
+
+			});
+
+		})
+
+		$('form[name="sign-in-form"]').on("submit", function (event) {
+			event.preventDefault();
+			const data = new FormData(event.target);
+			const value = Object.fromEntries(data.entries());
+
+			var publicToken = "";
+
+			localStorage.setItem('loginRequest', JSON.stringify(value));
+
+			$.post({
+				url: "http://localhost:8080/api/auth/login",
+				contentType: 'application/json',
+				dataType: 'json',
+				data: JSON.stringify(value),
+				complete: function (jqXHR) {
+					console.log(jqXHR.responseJSON.token);
+					var token = jqXHR.responseJSON.token;
+					// var userId = jqXHR.responseJSON.id;
+					publicToken = token;
+					console.log(token);
+					localStorage.setItem('token', token);
+					// localStorage.setItem('userId', userId);
+					// console.log(localStorage.getItem('userId'));
+					if (jqXHR.status != 200) {
+						alert("Wrong username or password, try again, please");
+					}
+					if (jqXHR.status == 200) {
+						alert("ZBS!");
+
+					}
+				},
+				error: function () {
+					alert("Wrong username or password, try again, please");
+				}
+			});
+		})
+
+		$(window).on("scroll", function () {
+			var scroll = $(window).scrollTop();
+
+			if (scroll >= 80) {
+				$("#site-header").addClass("nav-fixed");
+			} else {
+				$("#site-header").removeClass("nav-fixed");
+			}
+		});
+
+		//Main navigation Active Class Add Remove
+		$(".navbar-toggler").on("click", function () {
+			$("header").toggleClass("active");
+		});
+		$(document).on("ready", function () {
+			if ($(window).width() > 991) {
+				$("header").removeClass("active");
+			}
+			$(window).on("resize", function () {
+				if ($(window).width() > 991) {
+					$("header").removeClass("active");
+				}
+			});
+		});
+	</script>
+	<script src="D:/JavaProject/SvitMovie/src/main/resources/static/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="D:/JavaProject/SvitMovie/src/main/resources/static/js/sign-in.js"></script>
+
+</body>
+
+</html>
