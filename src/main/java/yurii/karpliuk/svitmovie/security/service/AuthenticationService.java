@@ -1,4 +1,4 @@
-package yurii.karpliuk.svitmovie.service;
+package yurii.karpliuk.svitmovie.security.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

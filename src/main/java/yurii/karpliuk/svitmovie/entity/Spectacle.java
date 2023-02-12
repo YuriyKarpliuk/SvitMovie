@@ -7,19 +7,21 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
 @Entity
-public class Session extends IdHolder {
+public class Spectacle extends IdHolder {
+
+    private Timestamp sessionDate;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnore
-    private Hall hall;
-
-    private Date sessionDate;
+    private Cinema cinema;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     private Movie movie;
+
 }

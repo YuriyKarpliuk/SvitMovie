@@ -9,14 +9,14 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Place extends IdHolder {
-    private Integer seatNumber;
+public class Seat extends IdHolder {
+    private Integer number;
     private Integer numberOfRow;
     private Boolean isReserved;
-    @ManyToMany(mappedBy = "places")
+    @ManyToMany(mappedBy = "seats")
     private List<Hall> halls;
 
-    @OneToOne(mappedBy = "place")
+    @OneToOne(mappedBy = "seat")
     private Ticket ticket;
 
 }

@@ -22,19 +22,8 @@ public class Hall extends IdHolder {
     @JsonIgnore
     private ScreenTechnology screenTechnology;
 
-    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
-    private List<Spectacle> spectacles;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Cinema cinema;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Hall hall = (Hall) o;
-        return Objects.equals(name, hall.name) && Objects.equals(seats, hall.seats) && Objects.equals(screenTechnology, hall.screenTechnology) && Objects.equals(spectacles, hall.spectacles);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, seats, screenTechnology, spectacles);
-    }
 }
