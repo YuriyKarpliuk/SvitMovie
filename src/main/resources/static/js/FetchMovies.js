@@ -1,3 +1,16 @@
+function searchMovieByTitleLike() {
+    fetchMovies(0, 'http://localhost:8080/api/movies/searchByTitleLike?movieTitle=' + $('#search-input').val());
+
+}
+
+const input = document.getElementById('search-input');
+input?.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById('movieSearchBtn').click();
+    }
+});
+
 
 function getMovieDescription(id) {
     localStorage.setItem('movieId', id);
@@ -12,10 +25,11 @@ function getMoviesByCategoryName(categoryName) {
 
 
 function fetchMovies(startPage, urlLink) {
+    $('ul.pagination').empty();
 
     console.log('startPage: ' + startPage);
 
-    localStorage.setItem('currentUrl',urlLink);
+    localStorage.setItem('currentUrl', urlLink);
     $.ajax({
         type: "GET",
         url: urlLink,
@@ -53,8 +67,11 @@ function fetchMovies(startPage, urlLink) {
                 $('.movies-container').append(newElement0);
             });
 
+            console.log($('ul.pagination li').length);
+            console.log(response.totalPages);
 
             if ($('ul.pagination li').length - 2 != response.totalPages) {
+
                 // build pagination list at the first time loading
                 $('ul.pagination').empty();
                 buildPagination(response);
@@ -71,8 +88,6 @@ function fetchMovies(startPage, urlLink) {
 function buildPagination(response) {
     totalPages = response.totalPages;
     var pageNumber = response.pageable.pageNumber;
-
-
 
 
     if (totalPages > 1) {
@@ -131,7 +146,6 @@ function buildPagination(response) {
 }
 
 
-
 $(document).on("click", "ul.pagination li a", function () {
     var data = $(this).attr('data');
     let val = $(this).text();
@@ -140,7 +154,7 @@ $(document).on("click", "ul.pagination li a", function () {
     // click on the NEXT tag
     if (val.toUpperCase() === "« FIRST") {
         let currentActive = $("li.active");
-        fetchMovies(0,localStorage.getItem('currentUrl'));
+        fetchMovies(0, localStorage.getItem('currentUrl'));
         $("li.active").removeClass("active");
         // add .active to next-pagination li
         currentActive.next().addClass("active");
