@@ -11106,6 +11106,7 @@ a.text-dark:focus {
 }
 
 .fa-2x {
+  line-height: 0.8em;
   font-size: 2em;
 }
 

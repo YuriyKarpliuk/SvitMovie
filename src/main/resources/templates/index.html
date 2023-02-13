@@ -9,8 +9,12 @@
     <script src="D:\MyProjects\frontend\jquery\jquery-3.6.0.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="D:/JavaProject/SvitMovie/src/main/resources/static/css/style-starter.css">
+    <script src="D:/JavaProject/SvitMovie/src/main/resources/static/js/getLocation.js"></script>
 
     <script src="D:/JavaProject/SvitMovie/src/main/resources/static/js/bootstrap.min.js"></script>
+
+
+
 
 </head>
 
@@ -32,11 +36,14 @@
             <span class="fa icon-close fa-times"></span>
         </button>
 
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="index.html">Home</a>
                 </li>
+                <a class="nav-link" href="#" id="userCityName"></a><i class="fa fa-caret-down fa-2x" style="margin-right: 10px;color: #d63447" aria-hidden="true"></i>
+
             </ul>
 
             <!--/search-right-->
@@ -45,9 +52,9 @@
 
 
                 <input type="search" id="search-input" placeholder="Search movie by title" name="search"
-                       required="required" autofocus="">
-                <button  class="btn" id="movieSearchBtn" onclick="searchMovieByTitleLike()"><span class="fa fa-search"
-                                                                           ></span></button>
+                       required="required" autofocus="" style="border-radius: 10px">
+                <button class="btn" id="movieSearchBtn" onclick="searchMovieByTitleLike()"><span class="fa fa-search"
+                ></span></button>
 
             </div>
             <div class="Login_SignUp" id="login"
@@ -76,7 +83,6 @@
 <ul class="pagination justify-content-center" style="margin:20px 0; cursor: pointer;">
 </ul>
 <script src="D:/JavaProject/SvitMovie/src/main/resources/static/js/FetchMovies.js"></script>
-
 
 </body>
 </html>

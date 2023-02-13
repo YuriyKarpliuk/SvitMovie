@@ -3,6 +3,7 @@ function searchMovieByTitleLike() {
 
 }
 
+
 const input = document.getElementById('search-input');
 input?.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
@@ -67,8 +68,6 @@ function fetchMovies(startPage, urlLink) {
                 $('.movies-container').append(newElement0);
             });
 
-            console.log($('ul.pagination li').length);
-            console.log(response.totalPages);
 
             if ($('ul.pagination li').length - 2 != response.totalPages) {
 
@@ -228,8 +227,46 @@ function getMovieCategories() {
     });
 }
 
+function checkIfUserCityExistInDb(userCity) {
+    var exist = 0;
+    var defaultUserCity;
+    var street;
+    let response = fetch("http://localhost:8080/api/addresses/all", {
+
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+        },
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${reponse.status}`)
+        }
+        response.json()
+            .then((addresses) => {
+                console.log(addresses);
+                addresses.forEach(element => {
+                    if (userCity == element.city) {
+                        exist++;
+                        street=element.street;
+                    }else if(defaultUserCity===undefined){
+                        defaultUserCity=element.city;
+                        street=element.street;
+                    }
+
+                });
+                console.log(exist);
+                if (exist != 0) {
+                    document.getElementById('userCityName').innerHTML = userCity+","+street;
+                } else {
+                    document.getElementById('userCityName').innerHTML = defaultUserCity+","+street;
+
+                }
+            })
+    });
+}
 
 $(document).ready(function () {
+    checkIfUserCityExistInDb(localStorage.getItem("userCityName"))
     getMovieCategories();
     let totalPages = 1;
 
@@ -238,4 +275,5 @@ $(document).ready(function () {
         fetchMovies(0, 'http://localhost:8080/api/movies/all');
     })();
 });
+
 
